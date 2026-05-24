@@ -1,11 +1,36 @@
 <!DOCTYPE html>
 <html lang="ja">
+<link rel="icon" href="favicon_p-lab.ico">
 <head>
 	<meta charset="utf-8">
-	<title>┌(^o^ ┐)┐</title>
+	<title>パラちゃんシステムV</title>
 </head>
 <body>
-	<h2>パラちゃんシステムV(仮)</h2>HTML版
+	<h2>パラちゃんシステムV</h2>
+		<details><summary>使用方法</summary>
+			1.SimplePlanes上で機体を作成<br>
+			　使用するRotatorのRangeOfMotionの値は90度に統一しておく(詳細設定のRangeを変更した場合はその値に設定)<br>
+			　また、inputControllerのInvertを切り替え、+方向に操作した際に砲が右上を向くようにしておく<br>
+			2.項目説明を参考に、設定を記入する<br>
+			3.<button onclick="Update()">更新</button>ボタンを押す<br>
+			<details><summary>xml編集ができる人向け</summary>
+			4.機体を保存する<br>
+				(
+			5.出力/XML用の所にある<button onclick="XMLCopy()">コピー</button>を押す<br>
+			　(コードがクリップボードにコピーされない場合は、横の ▼表示 をクリックし、表示されたコードを全選択してコピーする)<br>
+			6.appdata上にある機体のxmlを開き、5行目付近にある&lt;Variables&gt;～&lt;/Variables&gt;の間に5.でコピーしたコードを貼り付ける<br>
+			　(&lt;Variables /&gt;のようになっている場合は、&lt;Variables&gt;(改行)&lt;/Variables&gt;の形に直してから間に貼り付ける)<br>
+			7.砲塔のローテーターのInputを横方向のものを<color="#002200">Turret0Heading</color>、縦方向のものを<color="#002200">Turret0Elevation</color>に設定する<br>
+			　(複数の砲塔を設定している場合はTurret1、Turret2...のように数字の部分を設定欄のidの値に合わせて変更する)<br>
+			</details>
+			<details><summary>xml編集ができない人向け</summary>
+			4.SimplePlanes上でVariableSettersを開く<br>
+			　(初代：機体編集画面の右下、[(x)]のボタン、SP2:機体編集画面からメニューを開き、真ん中辺りの四角に毛が生えたようなボタン)<br>
+			5.出力/VariableSetters用の所にある ▼表示 をクリックし、表示された一覧を全てSimplePlanes上のVariableSettersへコピーする<br>
+			6.砲塔のローテーターのInputを横方向のものを<color="#002200">Turret0Heading</color>、縦方向のものを<color="#002200">Turret0Elevation</color>に設定する<br>
+			　(複数の砲塔を設定している場合はTurret1、Turret2...のように数字の部分を設定欄のidの値に合わせて変更する)<br>
+			</details>
+		</details>
 	<hr>
 	<p><h4>設定</h4>
 		<details><summary>項目説明</summary>
@@ -73,8 +98,8 @@
 	<hr>
 	<p><h4>出力</h4>
 	<table>
-		<tr><th valign="top">VariableSetter用</th><td><details><summary>表示</summary><table id="ValSetList" border="1"><tr><th>変数名</th><th align="left">式</th></table></details></td></tr>
 		<tr><th valign="top">XML用 <button onclick="XMLCopy()">コピー</button></th><td><details  id="XMLListDetail"><summary>表示</summary><textarea id="XMLList" rows="10" cols="100%"></textarea></details></td></tr>
+		<tr><th valign="top">VariableSetters用</th><td><details><summary>表示</summary><table id="ValSetList" border="1"><tr><th>変数名</th><th align="left">式</th></table></details></td></tr>
 	</table>
 	</p>
 	
