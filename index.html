@@ -13,7 +13,7 @@
 			　また、inputControllerのInvertを切り替え、+方向に操作した際に砲が右上を向くようにしておく<br>
 			2.項目説明を参考に、設定を記入する<br>
 			3.<button onclick="Update()">更新</button>ボタンを押す<br>
-			<details><summary>xml編集ができる人向け</summary>
+			<details><summary>テキストエディタでのxml編集ができる人向け</summary>
 			4.機体を保存する<br>
 			5.出力/XML用の所にある<button onclick="XMLCopy()">コピー</button>を押す<br>
 			　(コードがクリップボードにコピーされない場合は、横の ▼表示 をクリックし、表示されたコードを全選択してコピーする)<br>
@@ -22,54 +22,63 @@
 			7.砲塔のローテーターのInputを横方向のものを<color="#002200">Turret0Heading</color>、縦方向のものを<color="#002200">Turret0Elevation</color>に設定する<br>
 			　(複数の砲塔を設定している場合はTurret1、Turret2...のように数字の部分を設定欄のidの値に合わせて変更する)<br>
 			</details>
-			<details><summary>xml編集ができない人向け</summary>
+			<details><summary>テキストエディタでのxml編集ができない人向け</summary>
 			4.SimplePlanes上でVariableSettersを開く<br>
 			　(初代：機体編集画面の右下、[(x)]のボタン、SP2:機体編集画面からメニューを開き、真ん中辺りの四角に毛が生えたようなボタン)<br>
 			5.出力/VariableSetters用の所にある ▼表示 をクリックし、表示された一覧を全てSimplePlanes上のVariableSettersへコピーする<br>
-			6.砲塔のローテーターのInputを横方向のものを<color="#002200">Turret0Heading</color>、縦方向のものを<color="#002200">Turret0Elevation</color>に設定する<br>
+			6.砲塔のローテーターのInputを横方向のものを<color="#002200">{タレット名}Heading</color>、縦方向のものを<color="#002200">{タレット名}Elevation</color>に設定する<br>
 			　(複数の砲塔を設定している場合はTurret1、Turret2...のように数字の部分を設定欄のidの値に合わせて変更する)<br>
 			</details>
 		</details>
 	<hr>
 	<p><h4>設定</h4>
 		<details><summary>項目説明</summary>
-			<table>
-				<tr><td colspan="2" align="center">起動条件</td><td>:</td><td>砲塔を起動する条件</td></tr>
-				<tr><td colspan="2" align="center">コックピット座標</td><td>:</td><td>基準にするコックピットのdesigner上での座標<br>(通常はmainに設定しているコックピットの座標を指定)</td></tr>
-				<tr><td align="center">タレット設定</td><td>┬座標</td><td>:</td><td>タレットのdesigner上での座標</td></tr>
-				<tr><td></td><td>├初期方向</td><td>:</td><td>機体前方を0度とした時の、タレットのdesigner上での向き</td></tr>
-				<tr><td></td><td>├仰角軸<br>　前後ｵﾌｾｯﾄ</td><td>:</td><td>仰角軸が旋回軸に対し前後方向にズレた位置に配置されている場合、その距離を入力</td></tr>
-				<tr><td></td><td>├射角制限</td><td>:</td><td>タレットの可動範囲、方位角を横min～横max、仰角を縦min～縦maxの範囲に制限する<br>未入力の場合は制限無し</td></tr>
-				<tr><td></td><td>├偏差モード</td><td>:</td>
-					<td><table>
-						<tr><td align="center">None</td><td>:</td><td>偏差なしのモード</td></tr>
-						<tr><td align="center">Gun</td><td>:</td><td>重力の影響を考慮しない機銃用のモード</td></tr>
-						<tr><td align="center">Cannon</td><td>:</td><td>重力の影響を考慮したCannon用のモード</td></tr>
-					</table></td></tr>
-				<tr><td></td><td>└弾速</td><td>:</td><td>機銃の場合:muzzleVelocity(初期値:800)の値、<br>Cannonの場合:projectileVelocityの値を指定</td></tr>
-				<tr><td align="center">詳細設定</td><td>┬基準傾斜</td><td>:</td><td>基準にするコックピットの向きを返す変数を指定</td></tr>
-				<tr><td></td><td>├基準座標</td><td>:</td><td>基準にするコックピットのワールド上での座標を返す変数を指定</td></tr>
-				<tr><td></td><td>├Range</td><td>:</td><td>使用するローテーターのRange Of Motionの値を指定</td></tr>
-				<tr><td></td><td>└namespace</td><td>:</td><td>変数名の先頭に追加する共通の文字列を指定(無関係な変数との名前被り防止)</td></tr>
+			<table border="1">
+				<tr><th colspan="2">起動条件</th><td colspan="2">砲塔を起動する条件</td></tr>
+				<tr><th colspan="2">ｺｯｸﾋﾟｯﾄ座標</th><td colspan="2">基準にするコックピットのdesigner上での座標<br>(通常はmainに設定しているコックピットの座標を指定)</td></tr>
+				<tr><th rowspan="7">ﾀﾚｯﾄ設定</th></tr>
+					<tr><th rowspan="2">偏差設定</th>
+						<th>モード</th>
+						<td><table>
+							<tr><td align="center">偏差無し</td><td>:</td><td>目標へ直接向けるモード</td><td>(カメラ用)</td></tr>
+							<tr><td align="center">機銃</td><td>:</td><td>重力の影響を考慮しない偏差射撃モード</td><td>(○○ Gun用)</td></tr>
+							<tr><td align="center">ｷｬﾉﾝ(直射)</td><td>:</td><td>重力の影響を考慮した偏差射撃(直射)モード</td><td>(○○ Cannon用)</td></tr>
+							<tr><td align="center">ｷｬﾉﾝ(曲射)</td><td>:</td><td>重力の影響を考慮した偏差射撃(曲射)モード</td><td>(○○ Cannon用)</td></tr>
+						</table></td></tr>
+						<th>弾速</th>
+						<td><table>
+							<tr><td align="center">Gun</td><td>:</td><td>muzzleVelocityの値(初期値:800)</td></tr>
+							<tr><td align="center">Cannon</td><td>:</td><td>projectileVelocityの値</td></tr>
+						</table></td></tr>
+					<tr><th>ﾀﾚｯﾄ座標</th><td colspan="2">タレットのdesigner上での座標</td></tr>
+					<tr><th>可動範囲</th><td colspan="2">タレットの可動範囲[Deg]<br>未入力の場合は制限無し</td></tr>
+					<tr><th>方向ｵﾌｾｯﾄ</th><td colspan="2">機体前方を0度とした時の、タレットのdesigner上での向き</td></tr>
+					<tr><th>仰角軸前後ｵﾌｾｯﾄ</th><td colspan="2">仰角用ローテーターが方位角用ローテーターに対して<br>前後方向にズレた位置に配置されている場合、その距離を入力</td></tr>
+				<tr><th rowspan="6">詳細設定</td></tr>
+					<tr><th>基準傾斜</th><td colspan="2">基準にするコックピットの向きを返す変数を指定</td></tr>
+					<tr><th>基準座標</th><td colspan="2">基準にするコックピットのワールド上での座標を返す変数を指定</td></tr>
+					<tr><th>Range</th><td colspan="2">使用するローテーターのRange Of Motionの値を指定</td></tr>
+					<tr><th>反復回数</th><td colspan="2">偏差射撃の誤差低減の為に行う反復計算の回数(1の場合旧verと同等)</td></tr>
+					<tr><th>ｸﾞﾙｰﾌﾟ名</th><td colspan="2">変数名の先頭に追加する共通の文字列を指定(無関係な変数との名前被り防止)</td></tr>
 			</table>
 		</details>
 		<br>
 		<table>
-			<th>起動条件</th><td><input id="ActivateGroup" type="text" size="20" value="TargetSelected"></td></tr>
-			<th>コックピット座標</th><td>
+			<th>起動条件(全体)</th><td><input id="ActivateGroup" type="text" size="20" value="TargetSelected"></td></tr>
+			<th>ｺｯｸﾋﾟｯﾄ座標</th><td>
 				<input id="CockpitX" type="text" size="3" value="" placeholder="X">
 				<input id="CockpitY" type="text" size="3" value="" placeholder="Y">
 				<input id="CockpitZ" type="text" size="3" value="" placeholder="Z"></td></tr>
-			<tr><th valign="top">タレット設定</th><td>
+			<tr><th valign="top">ﾀﾚｯﾄ設定</th><td>
 				<table border="1" id="TurretSettingTable">
 					<tr>
-						<th width="20">id</th>
-						<th colspan="3">座標<br>X　|　Y　|　Z</th>
-						<th colspan="2">初期方向<br>方位角|仰俯角</th>
+						<th>id</th>
+						<th>偏差設定<br>ﾓｰﾄﾞ/弾速</th>
+						<th>ﾀﾚｯﾄ座標<br>X　|　Y　|　Z</th>
+						<th colspan="2">可動範囲<br>方位角|仰俯角</th>
+						<th>方向<br>ｵﾌｾｯﾄ</th>
+						<th >起動条件<br>(ﾀﾚｯﾄ固有)</th>
 						<th>仰角軸<br>前後ｵﾌｾｯﾄ</th>
-						<th colspan="4" colspan>射角制限<br>方位角　|　仰俯角</th>
-						<th>偏差<br>モード</th>
-						<th>弾速</th>
 					</tr>
 				</table>
 				<button onclick="AddTurret()">追加</button>
@@ -87,9 +96,11 @@
 				<input id="Altitude" type="text" size="7" value="Altitude" placeholder="例：Altitude">
 				<input id="Latitude" type="text" size="7" value="Latitude" placeholder="例：Latitude"></td></tr>
 				<tr><th>Range</th><td>
-				<input id="RotatorRange" type="text" size="7" value="90" placeholder="例：90"></td></tr>
-				<tr><th>namespace</th><td>
-				<input id="Namespace" type="text" size="7" value=""></td></tr>
+				<input id="RotatorRange" type="text" size="20" value="90" placeholder="例：90"></td></tr>
+				<tr><th>反復回数</th><td>
+				<input id="CycleCount" type="text" size="20" value="4"></td></tr>
+				<tr><th>グループ名</th><td>
+				<input id="GroupName" type="text" size="20" value="" placeholder="例：TurretGroupA_"></td></tr>
 			</table>
 		</details>
 	</p>
@@ -104,200 +115,6 @@
 	
 	<p id="OutMessage"></p>
 </body>
-<script type="text/javascript">
-const TurretSettingTable = document.getElementById("TurretSettingTable");
-const ValSetList = document.getElementById("ValSetList");
-const XMLList = document.getElementById("XMLList");
-const XMLListDetail = document.getElementById("XMLListDetail");
-const OutMessage = document.getElementById("OutMessage");
-const Axis = ["X", "Y", "Z"];
-
-const PublicValList = [	//共通の変数
-					//回転行列
-					["{Namespace}RotationMatrix11","cos({Heading})*cos({RollAngle})-sin({Heading})*sin({PitchAngle})*sin({RollAngle})"],
-					["{Namespace}RotationMatrix12","cos({PitchAngle})*sin({RollAngle})"],
-					["{Namespace}RotationMatrix13","-sin({Heading})*cos({RollAngle})-cos({Heading})*sin({PitchAngle})*sin({RollAngle})"],
-					["{Namespace}RotationMatrix21","cos({Heading})*-sin({RollAngle})-sin({Heading})*sin({PitchAngle})*cos({RollAngle})"],
-					["{Namespace}RotationMatrix22","cos({PitchAngle})*cos({RollAngle})"],
-					["{Namespace}RotationMatrix23","sin({Heading})*sin({RollAngle})-cos({Heading})*sin({PitchAngle})*cos({RollAngle})"],
-					["{Namespace}RotationMatrix31","sin({Heading})*cos({PitchAngle})"],
-					["{Namespace}RotationMatrix32","sin({PitchAngle})"],
-					["{Namespace}RotationMatrix33","cos({Heading})*cos({PitchAngle})"],
-					//目標位置(ワールド座標)
-					["{Namespace}TargetPositionGlobalX","sin(TargetHeading)*cos(TargetElevation)*TargetDistance+Longitude"],
-					["{Namespace}TargetPositionGlobalY","sin(TargetElevation)*TargetDistance+Altitude"],
-					["{Namespace}TargetPositionGlobalZ","cos(TargetHeading)*cos(TargetElevation)*TargetDistance+Latitude"],
-					//目標位置(ローカル座標)
-					["{Namespace}TargetPositionLocalX","{Namespace}RotationMatrix11*({Namespace}TargetPositionGlobalX-{Longitude})+{Namespace}RotationMatrix12*({Namespace}TargetPositionGlobalY-{Altitude})+{Namespace}RotationMatrix13*({Namespace}TargetPositionGlobalZ-{Latitude})"],
-					["{Namespace}TargetPositionLocalY","{Namespace}RotationMatrix21*({Namespace}TargetPositionGlobalX-{Longitude})+{Namespace}RotationMatrix22*({Namespace}TargetPositionGlobalY-{Altitude})+{Namespace}RotationMatrix23*({Namespace}TargetPositionGlobalZ-{Latitude})"],
-					["{Namespace}TargetPositionLocalZ","{Namespace}RotationMatrix31*({Namespace}TargetPositionGlobalX-{Longitude})+{Namespace}RotationMatrix32*({Namespace}TargetPositionGlobalY-{Altitude})+{Namespace}RotationMatrix33*({Namespace}TargetPositionGlobalZ-{Latitude})"],
-					//目標速度(ローカル座標)
-					["{Namespace}TargetVelocityLocalX","{Namespace}RotationMatrix11*rate({Namespace}TargetPositionGlobalX-{Longitude})+{Namespace}RotationMatrix12*rate({Namespace}TargetPositionGlobalY-{Altitude})+{Namespace}RotationMatrix13*rate({Namespace}TargetPositionGlobalZ-{Latitude})"],
-					["{Namespace}TargetVelocityLocalY","{Namespace}RotationMatrix21*rate({Namespace}TargetPositionGlobalX-{Longitude})+{Namespace}RotationMatrix22*rate({Namespace}TargetPositionGlobalY-{Altitude})+{Namespace}RotationMatrix23*rate({Namespace}TargetPositionGlobalZ-{Latitude})"],
-					["{Namespace}TargetVelocityLocalZ","{Namespace}RotationMatrix31*rate({Namespace}TargetPositionGlobalX-{Longitude})+{Namespace}RotationMatrix32*rate({Namespace}TargetPositionGlobalY-{Altitude})+{Namespace}RotationMatrix33*rate({Namespace}TargetPositionGlobalZ-{Latitude})"]
-];
-
-function GetSettings(){	//設定の読み込み
-	const KeyList = [
-		"ActivateGroup", "CockpitX", "CockpitY", "CockpitZ",
-		"PitchAngle", "Heading", "RollAngle",
-		"Longitude", "Altitude", "Latitude",
-		"RotatorRange", "Namespace"
-	];
-	let Settings = {};
-	for(let i = 0; i<KeyList.length; i++){
-		Settings[KeyList[i]] = document.getElementById(KeyList[i]).value;
-		//Message += KeyList[i] + ":\t" + Settings[KeyList[i]] + "\n";
-	}
-	const TurretKeyList = ["PosX", "PosY", "PosZ", "HOffset", "EOffset", "ZOffset", "HMin", "HMax", "EMin", "EMax", "Mode", "BulletSpeed"];
-	let TurretSettings = [];
-	for(let i = 0; i < TurretSettingTable.rows.length - 1; i++){
-		let TurretSetting = {};
-		for(let j = 0; j < TurretKeyList.length; j++){
-			TurretSetting[TurretKeyList[j]] = document.getElementById("Turret" + i + TurretKeyList[j]).value;
-		}
-		TurretSettings.push(TurretSetting);
-	}
-	Settings["TurretSettings"] = TurretSettings;
-	return Settings;
-}
-
-function GetValList(Settings){
-	let ValList = [];
-	let Keys = Object.keys(Settings);
-	for(let i = 0; i < PublicValList.length; i++){
-		let Val = [PublicValList[i][0], PublicValList[i][1]];
-		for(let j = 0; j < Keys.length; j++){
-			Val[0] = Val[0].replace(new RegExp("{" + Keys[j] + "}", "g"), Settings[Keys[j]]);
-			Val[1] = Val[1].replace(new RegExp("{" + Keys[j] + "}", "g"), Settings[Keys[j]]);
-		}
-		ValList.push(Val);
-	}
-	for(let i = 0; i < Settings["TurretSettings"].length; i++){
-		let TSettings = Settings["TurretSettings"][i];
-		let Offset = [Settings["CockpitX"]-TSettings["PosX"], Settings["CockpitY"]-TSettings["PosY"], Settings["CockpitZ"]-TSettings["PosZ"]];
-		for(let i = 0; i < 3; i++)
-			Offset[i] = Math.round(Offset[i]*4096)/4096;
-		let TargetPosition = [
-			Settings["Namespace"] + "TargetPositionLocalX" + (Offset[0] == 0 ? "" : (Offset[0] > 0 ? "+" : "") + Offset[0]),
-			Settings["Namespace"] + "TargetPositionLocalY" + (Offset[1] == 0 ? "" : (Offset[1] > 0 ? "+" : "") + Offset[1]),
-			Settings["Namespace"] + "TargetPositionLocalZ" + (Offset[2] == 0 ? "" : (Offset[2] > 0 ? "+" : "") + Offset[2])
-		];
-		if(TSettings["Mode"] != "None"){
-			let TargetDistance = "sqrt(pow(" + TargetPosition[0] + ",2)+pow(" + TargetPosition[1] + ",2)+pow(" + TargetPosition[2] + ",2))";
-			let PredictTime = TargetDistance + "/(" + TSettings["BulletSpeed"] + "-rate(" + TargetDistance + ")";
-			ValList.push([Settings["Namespace"]+"Turret" + i + "PredictTime", PredictTime]);
-			
-			for(let j = 0; j < 3; j++){
-				TargetPosition[j] = TargetPosition[j] + "+(" + Settings["Namespace"] + "TargetVelocityLocal" + Axis[j] + "*" + Settings["Namespace"] + "Turret" + i + "PredictTime)";
-				
-			}
-			if(TSettings["Mode"] == "Cannon"){
-				for(let j = 0; j < 3; j++){
-					TargetPosition[j] = TargetPosition[j] + "+(" + Settings["Namespace"] + "RotationMatrix" + (j + 1) + "2" + "*4.905*pow(" + Settings["Namespace"] + "Turret" + i + "PredictTime,2))";
-				}
-			}
-		}
-		
-		let Heading = "atan2("+TargetPosition[0]+","+TargetPosition[2]+")";		//方位角
-		
-		let Elevation = "sqrt(pow(" + TargetPosition[0] + ",2)+pow(" + TargetPosition[2] + ",2))";		//仰角
-		if(TSettings["ZOffset"] != 0 && TSettings["ZOffset"] != "")
-			Elevation = Elevation + (TSettings["ZOffset"] < 0 ? "+" : "") + TSettings["ZOffset"]*-1;
-		Elevation = "atan2(" + TargetPosition[1] + "," + Elevation + ")";
-		
-		
-		if(TSettings["HOffset"] != 0 && TSettings["HOffset"] != "")				//角度ｵﾌｾｯﾄの設定
-			Heading = "deltaangle(" + TSettings["HOffset"] + "," + Heading + ")";
-		if(TSettings["EOffset"] != 0 && TSettings["EOffset"] != "")
-			Elevation = "deltaangle(" + TSettings["EOffset"] + "," + Elevation + ")";
-		
-		
-		
-		if(TSettings["HMin"] != "" && TSettings["HMax"] != "")		//射角制限の設定
-			Heading = "clamp(" + Heading + "," + TSettings["HMin"] + ","  + TSettings["HMax"] + ")";
-		if(TSettings["HMin"] != "" && TSettings["HMax"] != "")
-			Elevation = "clamp(" + Elevation + "," + TSettings["EMin"] + ","  + TSettings["EMax"] + ")";
-		
-		if(Settings["ActivateGroup"] != ""){	//起動条件の設定
-			Heading = "(" + Settings["ActivateGroup"] + "?" + Heading + ":0)";
-			Elevation = "(" + Settings["ActivateGroup"] + "?" + Elevation + ":0)";
-		}
-		
-		ValList.push([Settings["Namespace"]+"Turret" + i + "Heading", Heading + "/" + Settings["RotatorRange"]]);		//登録
-		ValList.push([Settings["Namespace"]+"Turret" + i + "Elevation", Elevation + "/" + Settings["RotatorRange"]]);
-	}
-	return ValList;
-}
-
-
-function printf(txt){
-	OutMessage.innerText = txt;
-}
-let count = 0;
-function Update(){	//進行管理
-	let Settings = GetSettings();
-	let ValList = GetValList(Settings);
-	ValSet(ValList);
-	count += 1;
-}
-
-//-----UI関連-----
-
-function AddTurret(){	//タレットの設定枠を増やす
-	let tr = document.createElement("tr");
-	let TurretId = TurretSettingTable.rows.length - 1;
-	tr.innerHTML = "<td align=\"center\">" + TurretId + "</td>";
-	tr.innerHTML += "<td align=\"center\"><input id=\"Turret" + TurretId + "PosX\" type=\"text\" size=\"2\" value=\"\" placeholder=\"X\"></td>";
-	tr.innerHTML += "<td align=\"center\"><input id=\"Turret" + TurretId + "PosY\" type=\"text\" size=\"2\" value=\"\" placeholder=\"Y\"></td>";
-	tr.innerHTML += "<td align=\"center\"><input id=\"Turret" + TurretId + "PosZ\" type=\"text\" size=\"2\" value=\"\" placeholder=\"Z\"></td>";
-	tr.innerHTML += "<td align=\"center\"><input id=\"Turret" + TurretId + "HOffset\" type=\"text\" size=\"2\" value=\"0\"></td>";
-	tr.innerHTML += "<td align=\"center\"><input id=\"Turret" + TurretId + "EOffset\" type=\"text\" size=\"2\" value=\"0\"></td>";
-	tr.innerHTML += "<td align=\"center\"><input id=\"Turret" + TurretId + "ZOffset\" type=\"text\" size=\"2\" value=\"0\"></td>";
-	tr.innerHTML += "<td align=\"center\"><input id=\"Turret" + TurretId + "HMin\" type=\"text\" size=\"1\" value=\"\" placeholder=\"min\"></td>";
-	tr.innerHTML += "<td align=\"center\"><input id=\"Turret" + TurretId + "HMax\" type=\"text\" size=\"1\" value=\"\" placeholder=\"max\"></td>";
-	tr.innerHTML += "<td align=\"center\"><input id=\"Turret" + TurretId + "EMin\" type=\"text\" size=\"1\" value=\"\" placeholder=\"min\"></td>";
-	tr.innerHTML += "<td align=\"center\"><input id=\"Turret" + TurretId + "EMax\" type=\"text\" size=\"1\" value=\"\" placeholder=\"max\"></td>";
-	tr.innerHTML += "<td align=\"center\"><select id=\"Turret" + TurretId + "Mode\"><option>None</option><option>Gun</option><option>Cannon</option></select></td></td>";
-	tr.innerHTML += "<td align=\"center\"><input id=\"Turret" + TurretId + "BulletSpeed\" type=\"text\" size=\"2\" value=\"\"></td>";
-	TurretSettingTable.appendChild(tr);
-}
-
-function DeleteTurret(){	//タレットの設定枠を減らす
-	let rowCount = TurretSettingTable.rows.length;//行数取得
-	if(rowCount>2)
-		TurretSettingTable.deleteRow(rowCount-1);//最終行を指定して削除
-}
-
-function ValSet(ValList){	//変数一覧の更新
-	let Rows = ValSetList.rows.length;
-	if(Rows>1)
-		for(let i = 1; i < Rows; i++)//全行削除
-			ValSetList.deleteRow(1);
-	let xmlStr = "";
-	for(let i = 0; i < ValList.length; i++){
-		let tr = document.createElement("tr");
-		tr.innerHTML = "<th>"+ValList[i][0]+"</th><td>"+ValList[i][1]+"</td>";
-		ValSetList.appendChild(tr);
-		xmlStr += "    <Setter variable=\""+ValList[i][0]+"\" function=\""+ValList[i][1]+"\" priority=\"0\" />\n";
-	XMLList.value = xmlStr;
-	}
-	
-	
-}
-
-function XMLCopy(){
-	if (navigator.clipboard){
-		navigator.clipboard.writeText(XMLList.value);
-	}
-	else{
-		XMLListDetail.open=true;
-		XMLList.select();
-		document.execCommand("Copy");
-	}
-}
-
-AddTurret();
-
+<script src="ParachanSystemV.js">
 </script>
 </html>
