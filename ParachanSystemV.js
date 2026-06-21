@@ -153,13 +153,16 @@ function GetValList(Settings){
 			if(TSettings["ZOffset"] != 0 && TSettings["ZOffset"] != "")
 				ElevationHL += "-" + TSettings["ZOffset"];
 			let Elevation = "atan2(" + TargetPosition[1] + "," + ElevationHL + ")";
-		
+
+		if(Settings["ActivateGroup"] != ""){	//起動条件の判定を追加
+			Heading = "(" + Enable + "?" + Heading + ":0)";
+			Elevation = "(" + Enable + "?" + Elevation + ":0)";
+		}
+
 		if(TSettings["HOffset"] != 0 && TSettings["HOffset"] != "")				//角度ｵﾌｾｯﾄの設定
 			Heading = "deltaangle(" + TSettings["HOffset"] + "," + Heading + ")";
 		if(TSettings["EOffset"] != 0 && TSettings["EOffset"] != "")
 			Elevation = "deltaangle(" + TSettings["EOffset"] + "," + Elevation + ")";
-		
-		
 		
 		if(TSettings["HMin"] != "" && TSettings["HMax"] != ""){		//射角制限の設定
 			Heading = "clamp(" + Heading + "," + TSettings["HMin"] + ","  + TSettings["HMax"] + ")";
@@ -170,10 +173,6 @@ function GetValList(Settings){
 			Enable += "&{GroupName}" + TSettings["Id"] + "Elevation>" + TSettings["EMin"] + "/" + Settings["RotatorRange"] + "&{GroupName}" + TSettings["Id"] + "Elevation<" + TSettings["EMax"] + "/" + Settings["RotatorRange"];
 		}
 		
-		if(Settings["ActivateGroup"] != ""){	//起動条件に可動範囲内の判定を追加
-			Heading = "(" + Settings["ActivateGroup"] + "?" + Heading + ":0)";
-			Elevation = "(" + Settings["ActivateGroup"] + "?" + Elevation + ":0)";
-		}
 		
 		ValList.push(["{GroupName}" + TSettings["Id"] + "Heading", Heading + "/" + Settings["RotatorRange"]]);		//登録
 		ValList.push(["{GroupName}" + TSettings["Id"] + "Elevation", Elevation + "/" + Settings["RotatorRange"]]);
