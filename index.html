@@ -19,15 +19,19 @@
 			　(コードがクリップボードにコピーされない場合は、横の ▼表示 をクリックし、表示されたコードを全選択してコピーする)<br>
 			6.appdata上にある機体のxmlを開き、5行目付近にある&lt;Variables&gt;～&lt;/Variables&gt;の間に5.でコピーしたコードを貼り付ける<br>
 			　(&lt;Variables /&gt;のようになっている場合は、&lt;Variables&gt;(改行)&lt;/Variables&gt;の形に直してから間に貼り付ける)<br>
-			7.砲塔のローテーターのInputを横方向のものを<color="#002200">Turret0Heading</color>、縦方向のものを<color="#002200">Turret0Elevation</color>に設定する<br>
-			　(複数の砲塔を設定している場合はTurret1、Turret2...のように数字の部分を設定欄のidの値に合わせて変更する)<br>
+			7.砲塔のローテーターのInputを横方向のものを<font color="red">{タレット名}Heading</font>、縦方向のものを<font color="red">{タレット名}Elevation</font>に設定する<br>
+			　オプションとして、<font color="red">{タレット名}Enable</font>で目標が砲の射角、射程に収まっているかを<br>
+			　<font color="red">{タレット名}Fuse</font>で着弾までのタイムラグを取得できる<br>
+			　(使用する際は{タレット名}の部分を該当タレットのidに置き換えて使用(初期設定の場合：Turret0,Turret1...等))<br>
 			</details>
 			<details><summary>テキストエディタでのxml編集ができない人向け</summary>
 			4.SimplePlanes上でVariableSettersを開く<br>
 			　(初代：機体編集画面の右下、[(x)]のボタン、SP2:機体編集画面からメニューを開き、真ん中辺りの四角に毛が生えたようなボタン)<br>
 			5.出力/VariableSetters用の所にある ▼表示 をクリックし、表示された一覧を全てSimplePlanes上のVariableSettersへコピーする<br>
-			6.砲塔のローテーターのInputを横方向のものを<color="#002200">{タレット名}Heading</color>、縦方向のものを<color="#002200">{タレット名}Elevation</color>に設定する<br>
-			　(複数の砲塔を設定している場合はTurret1、Turret2...のように数字の部分を設定欄のidの値に合わせて変更する)<br>
+			6.砲塔のローテーターのInputを横方向のものを<font color="red">{タレット名}Heading</font>、縦方向のものを<font color="red">{タレット名}Elevation</font>に設定する<br>
+			　オプションとして、<font color="red">{タレット名}Enable</font>で目標が砲の射角、射程に収まっているかを<br>
+			　<font color="red">{タレット名}Fuse</font>で着弾までのタイムラグを取得できる<br>
+			　(使用する際は{タレット名}の部分を該当タレットのidに置き換えて使用(初期設定の場合：Turret0,Turret1...等))<br>
 			</details>
 		</details>
 	<hr>
@@ -36,7 +40,7 @@
 			<table border="1">
 				<tr><th colspan="2">起動条件</th><td colspan="2">砲塔を起動する条件</td></tr>
 				<tr><th colspan="2">ｺｯｸﾋﾟｯﾄ座標</th><td colspan="2">基準にするコックピットのdesigner上での座標<br>(通常はmainに設定しているコックピットの座標を指定)</td></tr>
-				<tr><th rowspan="7">ﾀﾚｯﾄ設定</th></tr>
+				<tr><th rowspan="8">ﾀﾚｯﾄ設定</th></tr>
 					<tr><th rowspan="2">偏差設定</th>
 						<th>モード</th>
 						<td><table>
@@ -53,6 +57,7 @@
 					<tr><th>ﾀﾚｯﾄ座標</th><td colspan="2">タレットのdesigner上での座標</td></tr>
 					<tr><th>可動範囲</th><td colspan="2">タレットの可動範囲[Deg]<br>未入力の場合は制限無し</td></tr>
 					<tr><th>方向ｵﾌｾｯﾄ</th><td colspan="2">機体前方を0度とした時の、タレットのdesigner上での向き</td></tr>
+					<tr><th>起動条件(ﾀﾚｯﾄ固有)</th><td colspan="2">そのタレット固有の起動条件<br>(起動条件(全体)と(固有)の両方がtrueの場合のみ動作)</td></tr>
 					<tr><th>仰角軸前後ｵﾌｾｯﾄ</th><td colspan="2">仰角用ローテーターが方位角用ローテーターに対して<br>前後方向にズレた位置に配置されている場合、その距離を入力</td></tr>
 				<tr><th rowspan="6">詳細設定</td></tr>
 					<tr><th>基準傾斜</th><td colspan="2">基準にするコックピットの向きを返す変数を指定</td></tr>
