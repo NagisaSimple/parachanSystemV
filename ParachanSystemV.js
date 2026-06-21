@@ -163,11 +163,11 @@ function GetValList(Settings){
 		
 		if(TSettings["HMin"] != "" && TSettings["HMax"] != ""){		//射角制限の設定
 			Heading = "clamp(" + Heading + "," + TSettings["HMin"] + ","  + TSettings["HMax"] + ")";
-			Enable += "&{GroupName}Turret" + TSettings["Id"] + "Heading>=" + TSettings["HMin"] + "&{GroupName}Turret" + TSettings["Id"] + "Heading<=" + TSettings["HMax"];
+			Enable += "&{GroupName}" + TSettings["Id"] + "Heading>" + TSettings["HMin"] + "&{GroupName}" + TSettings["Id"] + "Heading<" + TSettings["HMax"];
 		}
 		if(TSettings["EMin"] != "" && TSettings["EMax"] != ""){
 			Elevation = "clamp(" + Elevation + "," + TSettings["EMin"] + ","  + TSettings["EMax"] + ")";
-			Enable += "&{GroupName}Turret" + TSettings["Id"] + "Elevation>=" + TSettings["EMin"] + "&{GroupName}Turret" + TSettings["Id"] + "Elevation<=" + TSettings["EMax"];
+			Enable += "&{GroupName}" + TSettings["Id"] + "Elevation>" + TSettings["EMin"] + "&{GroupName}" + TSettings["Id"] + "Elevation<" + TSettings["EMax"];
 		}
 		
 		if(Settings["ActivateGroup"] != ""){	//起動条件に可動範囲内の判定を追加
