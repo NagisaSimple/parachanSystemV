@@ -33,7 +33,7 @@ function GetSettings(){																	//設定の読み込み
 	for(let i = 0; i<KeyList.length; i++){
 		Settings[KeyList[i]] = document.getElementById(KeyList[i]).value;
 	}
-	const TurretKeyList = ["Id", "PosX", "PosY", "PosZ", "HOffset", "EOffset", "HMin", "HMax", "EMin", "EMax", "Mode", "BulletSpeed", "Activator", "ZOffset"];
+	const TurretKeyList = ["Id", "PosX", "PosY", "PosZ", "HOffset", "EOffset", "HMin", "HMax", "EMin", "EMax", "Mode", "BulletSpeed", "Activator"];	//, "ZOffset"
 	let TurretSettings = [];
 	for(let i = 0; i < TurretSettingTable.rows.length - 1; i++){
 		let TurretSetting = {};
@@ -118,6 +118,8 @@ function GetValList(Settings){
 			else if(TSettings["Mode"] == "ｷｬﾉﾝ(直射)" || TSettings["Mode"] == "ｷｬﾉﾝ(曲射)"){	//偏差ﾓｰﾄﾞ：Cannon系
 				let CannonMode = (TSettings["Mode"] == "ｷｬﾉﾝ(直射)" ? "-" : "+");
 				let HL = "sqrt(pow(" + TargetPositionName[0] + ",2)+pow(" + TargetPositionName[2] + ",2))";
+				//if(TSettings["ZOffset"] != 0)
+				//	HL += "-" + TSettings["ZOffset"];
 				let VL = TargetPositionName[1];
 				let Sqrt = "max(0,pow(" + TSettings["BulletSpeed"] + ",4)/pow(9.81*" + HL + ",2)-2*pow(" + TSettings["BulletSpeed"] + ",2)*" + VL + "/(9.81*pow(" + HL + ",2))-1";
 				let SqrtName = "{GroupName}" + TSettings["Id"] + "Sqrt";
@@ -128,6 +130,8 @@ function GetValList(Settings){
 					let Fuse = HL + "/" + TSettings["BulletSpeed"] + "*sqrt(1+pow(" + TSettings["BulletSpeed"] + ",4)/pow(9.81*" + HL + ",2)" + CannonMode + "2*sqrt(" + SqrtName + ")*pow(" + TSettings["BulletSpeed"] + ",2)/(9.81*" + HL + ")+" + SqrtName + ")";
 					ValList.push([FuseName, Fuse]);
 					HL = "sqrt(pow(" + TargetPositionName[0] + "+" + TargetVelocityName[0] + "*" + FuseName + ",2)+pow(" + TargetPositionName[2] + "+" + TargetVelocityName[2] + "*" + FuseName + ",2))";
+					//if(TSettings["ZOffset"] != 0)
+					//	HL += "-" + TSettings["ZOffset"];
 					VL = "(" + TargetPositionName[1] + "+" + TargetVelocityName[1] + "*" + FuseName + ")";
 				}
 																							//偏差付き座標
@@ -150,8 +154,8 @@ function GetValList(Settings){
 		
 			let Heading = "atan2(" + TargetPosition[0] + "," + TargetPosition[2] + ")";				//方位角,行俯角
 			let ElevationHL = "sqrt(pow(" + TargetPosition[0] + ",2)+pow(" + TargetPosition[2] + ",2))";
-			if(TSettings["ZOffset"] != 0 && TSettings["ZOffset"] != "")
-				ElevationHL += "-" + TSettings["ZOffset"];
+			//if(TSettings["ZOffset"] != 0 && TSettings["Mode"] != "ｷｬﾉﾝ(直射)" && TSettings["Mode"] != "ｷｬﾉﾝ(曲射)")	//仰角軸のズレを補正(ｷｬﾉﾝ以外)
+			//	ElevationHL += "-" + TSettings["ZOffset"];
 			let Elevation = "atan2(" + TargetPosition[1] + "," + ElevationHL + ")";
 
 		if(Settings["ActivateGroup"] != ""){	//起動条件の判定を追加
@@ -159,16 +163,16 @@ function GetValList(Settings){
 			Elevation = "(" + Enable + "?" + Elevation + ":0)";
 		}
 
-		if(TSettings["HOffset"] != 0 && TSettings["HOffset"] != "")				//角度ｵﾌｾｯﾄの設定
+		if(TSettings["HOffset"] != 0)				//角度ｵﾌｾｯﾄの設定
 			Heading = "deltaangle(" + TSettings["HOffset"] + "," + Heading + ")";
-		if(TSettings["EOffset"] != 0 && TSettings["EOffset"] != "")
+		if(TSettings["EOffset"] != 0)
 			Elevation = "deltaangle(" + TSettings["EOffset"] + "," + Elevation + ")";
 		
-		if(TSettings["HMin"] != "" && TSettings["HMax"] != ""){		//射角制限の設定
+		if(TSettings["HMin"] !== "" && TSettings["HMax"] !== ""){		//射角制限の設定
 			Heading = "clamp(" + Heading + "," + TSettings["HMin"] + ","  + TSettings["HMax"] + ")";
 			Enable += "&{GroupName}" + TSettings["Id"] + "Heading>" + TSettings["HMin"] + "/" + Settings["RotatorRange"] + "&{GroupName}" + TSettings["Id"] + "Heading<" + TSettings["HMax"] + "/" + Settings["RotatorRange"];
 		}
-		if(TSettings["EMin"] != "" && TSettings["EMax"] != ""){
+		if(TSettings["EMin"] !== "" && TSettings["EMax"] !== ""){
 			Elevation = "clamp(" + Elevation + "," + TSettings["EMin"] + ","  + TSettings["EMax"] + ")";
 			Enable += "&{GroupName}" + TSettings["Id"] + "Elevation>" + TSettings["EMin"] + "/" + Settings["RotatorRange"] + "&{GroupName}" + TSettings["Id"] + "Elevation<" + TSettings["EMax"] + "/" + Settings["RotatorRange"];
 		}
@@ -217,7 +221,7 @@ function AddTurret(){	//タレットの設定枠を増やす
 	tr.innerHTML += "<td align=\"center\"><input id=\"Turret" + TurretId + "EMax\" type=\"text\" size=\"2\" value=\"\" placeholder=\"max\"><br><input id=\"Turret" + TurretId + "EMin\" type=\"text\" size=\"2\" value=\"\" placeholder=\"min\"></td>";
 	tr.innerHTML += "<td align=\"center\"><input id=\"Turret" + TurretId + "EOffset\" type=\"text\" size=\"2\" value=\"\" placeholder=\"仰俯角\"><br><input id=\"Turret" + TurretId + "HOffset\" type=\"text\" size=\"2\" value=\"\" placeholder=\"方位角\"></td>";
 	tr.innerHTML += "<td align=\"center\"><input id=\"Turret" + TurretId + "Activator\" type=\"text\" size=\"9\" value=\"\" placeholder=\"起動条件(固有)\"></td>";
-	tr.innerHTML += "<td align=\"center\"><input id=\"Turret" + TurretId + "ZOffset\" type=\"text\" size=\"3\" value=\"\"></td>";
+	//tr.innerHTML += "<td align=\"center\"><input id=\"Turret" + TurretId + "ZOffset\" type=\"text\" size=\"3\" value=\"\"></td>";
 	TurretSettingTable.appendChild(tr);
 }
 

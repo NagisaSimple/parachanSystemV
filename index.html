@@ -40,7 +40,7 @@
 			<table border="1">
 				<tr><th colspan="2">起動条件</th><td colspan="2">砲塔を起動する条件</td></tr>
 				<tr><th colspan="2">ｺｯｸﾋﾟｯﾄ座標</th><td colspan="2">基準にするコックピットのdesigner上での座標<br>(通常はmainに設定しているコックピットの座標を指定)</td></tr>
-				<tr><th rowspan="8">ﾀﾚｯﾄ設定</th></tr>
+				<tr><th rowspan="7">ﾀﾚｯﾄ設定</th></tr>
 					<tr><th rowspan="2">偏差設定</th>
 						<th>モード</th>
 						<td><table>
@@ -58,7 +58,7 @@
 					<tr><th>可動範囲</th><td colspan="2">タレットの可動範囲[Deg]<br>未入力の場合は制限無し</td></tr>
 					<tr><th>方向ｵﾌｾｯﾄ</th><td colspan="2">機体前方を0度とした時の、タレットのdesigner上での向き</td></tr>
 					<tr><th>起動条件(ﾀﾚｯﾄ固有)</th><td colspan="2">そのタレット固有の起動条件<br>(起動条件(全体)と(固有)の両方がtrueの場合のみ動作)</td></tr>
-					<tr><th>仰角軸前後ｵﾌｾｯﾄ</th><td colspan="2">仰角用ローテーターが方位角用ローテーターに対して<br>前後方向にズレた位置に配置されている場合、その距離を入力</td></tr>
+					<!-- <tr><th>仰角軸前後ｵﾌｾｯﾄ</th><td colspan="2">仰角用ローテーターが方位角用ローテーターに対して<br>前後方向にズレた位置に配置されている場合、その距離を入力</td></tr> -->
 				<tr><th rowspan="6">詳細設定</td></tr>
 					<tr><th>基準傾斜</th><td colspan="2">基準にするコックピットの向きを返す変数を指定</td></tr>
 					<tr><th>基準座標</th><td colspan="2">基準にするコックピットのワールド上での座標を返す変数を指定</td></tr>
@@ -83,7 +83,7 @@
 						<th colspan="2">可動範囲<br>方位角|仰俯角</th>
 						<th>方向<br>ｵﾌｾｯﾄ</th>
 						<th >起動条件<br>(ﾀﾚｯﾄ固有)</th>
-						<th>仰角軸<br>前後ｵﾌｾｯﾄ</th>
+						<!-- <th>仰角軸<br>前後ｵﾌｾｯﾄ</th> -->
 					</tr>
 				</table>
 				<button onclick="AddTurret()">追加</button>
